@@ -1,0 +1,365 @@
+<!--
+  * Student ID: 25108934
+  * Student Name: Tharushi Sandeepa Bogahapitiye Serasingha Gamage
+  * Unit: PROG2005 Programming Mobile Systems
+  * Assignment: Assessment 2 - Part 1
+  * File Description: Modern semantic HTML structure for the Inventory Management application
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management - Professional Dashboard</title>
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Header Section -->
+      <header class="header">
+        <div class="header-content">
+          <div class="logo-section">
+            <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <!-- Box/Package Icon -->
+              <rect x="15" y="25" width="70" height="55" fill="none" stroke="white" stroke-width="2"/>
+              <line x1="15" y1="40" x2="85" y2="40" stroke="white" stroke-width="2"/>
+              <line x1="30" y1="25" x2="30" y2="80" stroke="white" stroke-width="1.5"/>
+              <line x1="70" y1="25" x2="70" y2="80" stroke="white" stroke-width="1.5"/>
+              <circle cx="50" cy="52" r="5" fill="white"/>
+            </svg>
+            <div class="logo-text">
+              <h1 class="app-title">Inventory Manager</h1>
+              <p class="app-subtitle">Professional Dashboard</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Notification Area -->
+      <div id="notification" class="notification"></div>
+
+      <!-- Main Content -->
+      <main class="main-container">
+        <!-- Left Sidebar - Forms -->
+        <aside class="sidebar">
+          <!-- Add Item Form Card -->
+          <div class="card form-card">
+            <div class="card-header">
+              <h2>Add New Item</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="itemId">Item ID *</label>
+                <input
+                  type="number"
+                  id="itemId"
+                  class="form-input"
+                  placeholder="e.g., 1, 2, 3"
+                  min="1"
+                  required
+                />
+                <div id="itemIdSuggestions" class="suggestion-list"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="itemName">Item Name *</label>
+                <input
+                  type="text"
+                  id="itemName"
+                  class="form-input"
+                  placeholder="e.g., Dell XPS 13 Laptop"
+                  required
+                />
+                <div id="itemNameSuggestions" class="suggestion-list"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="category">Category *</label>
+                <input
+                  type="text"
+                  id="category"
+                  class="form-input"
+                  placeholder="e.g., Electronics"
+                  required
+                />
+                <div id="categorySuggestions" class="suggestion-list"></div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="quantity">Quantity *</label>
+                  <input
+                    type="number"
+                    id="quantity"
+                    class="form-input"
+                    placeholder="0"
+                    min="0"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="price">Price ($) *</label>
+                  <input
+                    type="number"
+                    id="price"
+                    class="form-input"
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="supplierName">Supplier Name *</label>
+                <input
+                  type="text"
+                  id="supplierName"
+                  class="form-input"
+                  placeholder="e.g., Dell Technologies"
+                  required
+                />
+                <div id="supplierNameSuggestions" class="suggestion-list"></div>
+              </div>
+
+              <div class="form-group">
+                <label for="stockStatus">Stock Status *</label>
+                <input
+                  type="text"
+                  id="stockStatus"
+                  class="form-input"
+                  placeholder="e.g., In Stock, Low Stock"
+                  required
+                />
+                <div id="stockStatusSuggestions" class="suggestion-list"></div>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <input
+                  type="checkbox"
+                  id="popularItem"
+                  class="form-checkbox"
+                />
+                <label for="popularItem" class="checkbox-label">Mark as Popular Item</label>
+              </div>
+
+              <div class="form-group">
+                <label for="comment">Comment (Optional)</label>
+                <textarea
+                  id="comment"
+                  class="form-input form-textarea"
+                  placeholder="Add any additional notes..."
+                  rows="2"
+                ></textarea>
+              </div>
+
+              <button type="button" id="addBtn" class="btn btn-primary btn-block">
+                + Add Item
+              </button>
+              
+              <!-- Item Preview Card -->
+              <div id="itemPreview" class="item-preview-section" style="display: none;">
+                <div class="preview-divider"></div>
+                <h3 class="preview-title">📋 Final Item Preview</h3>
+                <div class="preview-grid">
+                  <div class="preview-field">
+                    <span class="preview-label">ID:</span>
+                    <span id="previewId" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Name:</span>
+                    <span id="previewName" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Category:</span>
+                    <span id="previewCategory" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Qty:</span>
+                    <span id="previewQuantity" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Price:</span>
+                    <span id="previewPrice" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Supplier:</span>
+                    <span id="previewSupplier" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Status:</span>
+                    <span id="previewStatus" class="preview-value">-</span>
+                  </div>
+                  <div class="preview-field">
+                    <span class="preview-label">Popular:</span>
+                    <span id="previewPopular" class="preview-value">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delete Item Card -->
+          <div class="card form-card">
+            <div class="card-header">
+              <h2>Delete Item</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="deleteItemName">Item Name or ID *</label>
+                <input
+                  type="text"
+                  id="deleteItemName"
+                  class="form-input"
+                  placeholder="Enter item name"
+                  required
+                />
+                <div id="deleteItemNameSuggestions" class="suggestion-list"></div>
+              </div>
+              <div class="form-group">
+                <label for="deleteItemId">Or Item ID *</label>
+                <input
+                  type="number"
+                  id="deleteItemId"
+                  class="form-input"
+                  placeholder="Enter item ID"
+                  min="1"
+                />
+                <div id="deleteItemIdSuggestions" class="suggestion-list"></div>
+              </div>
+              <button type="button" id="deleteBtn" class="btn btn-danger btn-block">
+                Delete Item
+              </button>
+              <div id="confirmationBox" class="confirmation-box"></div>
+            </div>
+          </div>
+
+          <!-- Search Item Card -->
+          <div class="card form-card">
+            <div class="card-header">
+              <h2>Search Item</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="searchItemName">Item Name or ID *</label>
+                <input
+                  type="text"
+                  id="searchItemName"
+                  class="form-input"
+                  placeholder="Enter item name"
+                />
+                <div id="searchItemNameSuggestions" class="suggestion-list"></div>
+              </div>
+              <div class="form-group">
+                <label for="searchItemId">Or Item ID *</label>
+                <input
+                  type="number"
+                  id="searchItemId"
+                  class="form-input"
+                  placeholder="Enter item ID"
+                  min="1"
+                />
+                <div id="searchItemIdSuggestions" class="suggestion-list"></div>
+              </div>
+              <button type="button" id="searchBtn" class="btn btn-info btn-block">
+                🔍 Search
+              </button>
+            </div>
+          </div>
+
+          <!-- Update Item Card -->
+          <div class="card form-card">
+            <div class="card-header">
+              <h2>Update Item</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="updateItemName">Item Name or ID *</label>
+                <input
+                  type="text"
+                  id="updateItemName"
+                  class="form-input"
+                  placeholder="Enter item name"
+                />
+                <div id="updateItemNameSuggestions" class="suggestion-list"></div>
+              </div>
+              <div class="form-group">
+                <label for="updateItemId">Or Item ID *</label>
+                <input
+                  type="number"
+                  id="updateItemId"
+                  class="form-input"
+                  placeholder="Enter item ID"
+                  min="1"
+                />
+                <div id="updateItemIdSuggestions" class="suggestion-list"></div>
+              </div>
+              <div class="form-group">
+                <label for="updateField">Field to Update *</label>
+                <input
+                  type="text"
+                  id="updateField"
+                  class="form-input"
+                  placeholder="e.g., quantity, price, stockStatus"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="updateValue">New Value *</label>
+                <input
+                  type="text"
+                  id="updateValue"
+                  class="form-input"
+                  placeholder="Enter new value"
+                  required
+                />
+              </div>
+              <button type="button" id="updateBtn" class="btn btn-warning btn-block">
+                ✎ Update Item
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Section - Display Area -->
+        <section class="content-area">
+          <!-- Control Buttons -->
+          <div class="controls-section">
+            <div class="button-group">
+              <button type="button" id="displayAllBtn" class="btn btn-primary">
+                📊 Display All Items
+              </button>
+              <button type="button" id="displayPopularBtn" class="btn btn-primary">
+                ⭐ Popular Items
+              </button>
+            </div>
+          </div>
+
+          <!-- Items Display Card -->
+          <div class="card display-card">
+            <div class="card-header">
+              <h2>Inventory Items</h2>
+            </div>
+            <div class="card-body">
+              <div id="itemsDisplay" class="items-display">
+                <p class="loading">Loading inventory...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer Section -->
+      <footer class="footer">
+        <p>&copy; 2026 Inventory Management System. Part 1 Assignment - PROG2005</p>
+      </footer>
+    </div>
+
+    <!-- Load TypeScript compiled JavaScript files -->
+    <script src="dist/Item.js"></script>
+    <script src="dist/InventoryManager.js"></script>
+    <script src="dist/app.js"></script>
+  </body>
+</html>
